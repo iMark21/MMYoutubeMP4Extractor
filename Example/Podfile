@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MMYoutubeMP4Extractor_Example' do
+  pod 'MMYoutubeMP4Extractor', :path => '../'
+
+  target 'MMYoutubeMP4Extractor_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
