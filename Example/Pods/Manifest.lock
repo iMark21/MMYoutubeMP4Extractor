@@ -1,0 +1,16 @@
+PODS:
+  - MMYoutubeMP4Extractor (0.1.0)
+
+DEPENDENCIES:
+  - MMYoutubeMP4Extractor (from `../`)
+
+EXTERNAL SOURCES:
+  MMYoutubeMP4Extractor:
+    :path: ../
+
+SPEC CHECKSUMS:
+  MMYoutubeMP4Extractor: efd699511d8c36a62b6b9b7943ac80ae9b55c93e
+
+PODFILE CHECKSUM: c7d7448319f2f618a32ce903944f858d31d48660
+
+COCOAPODS: 1.0.0

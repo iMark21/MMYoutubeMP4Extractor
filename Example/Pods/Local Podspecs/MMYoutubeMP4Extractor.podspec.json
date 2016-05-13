@@ -1,0 +1,19 @@
+{
+  "name": "MMYoutubeMP4Extractor",
+  "version": "0.1.0",
+  "summary": "A short description of MMYoutubeMP4Extractor.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/MMYoutubeMP4Extractor",
+  "license": "MIT",
+  "authors": {
+    "Juan Miguel Marques Morilla": "juanmiguel.marques@4andgo.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/MMYoutubeMP4Extractor.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "MMYoutubeMP4Extractor/Classes/**/*"
+}

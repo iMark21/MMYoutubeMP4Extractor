@@ -22,7 +22,7 @@ pod "MMYoutubeMP4Extractor"
 
 ## Author
 
-Juan Miguel Marques Morilla, juanmiguel.marques@4andgo.com
+Juan Miguel Marques Morilla, marques.jm@icloud.com
 
 ## License
 

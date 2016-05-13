@@ -1,0 +1,6 @@
+framework module MMYoutubeMP4Extractor {
+  umbrella header "MMYoutubeMP4Extractor-umbrella.h"
+
+  export *
+  module * { export * }
+}
