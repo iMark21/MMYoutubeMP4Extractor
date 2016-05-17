@@ -59,10 +59,7 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6BCA892818D25E04C43C6972 /* MMYoutubeMP4Extractor.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MMYoutubeMP4Extractor.podspec; path = ../MMYoutubeMP4Extractor.podspec; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		A705E91A6DA994B49C7647C6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		AB91C8319F1CA9D288274CE8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		D828CE72949849C81AAAA146 /* Pods_MMYoutubeMP4Extractor_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MMYoutubeMP4Extractor_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F202F8C05197984CA9BA8D39 /* Pods-MMYoutubeMP4Extractor_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MMYoutubeMP4Extractor_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MMYoutubeMP4Extractor_Example/Pods-MMYoutubeMP4Extractor_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,8 +93,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
-				6003F593195388D20070C39A /* Example for MMYoutubeMP4Extractor */,
+				6003F593195388D20070C39A /* Sample */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
@@ -127,7 +123,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6003F593195388D20070C39A /* Example for MMYoutubeMP4Extractor */ = {
+		6003F593195388D20070C39A /* Sample */ = {
 			isa = PBXGroup;
 			children = (
 				6003F59C195388D20070C39A /* MMAppDelegate.h */,
@@ -138,7 +134,7 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
-			name = "Example for MMYoutubeMP4Extractor";
+			name = Sample;
 			path = MMYoutubeMP4Extractor;
 			sourceTree = "<group>";
 		};
@@ -170,16 +166,6 @@
 				606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				6BCA892818D25E04C43C6972 /* MMYoutubeMP4Extractor.podspec */,
-				A705E91A6DA994B49C7647C6 /* README.md */,
-				AB91C8319F1CA9D288274CE8 /* LICENSE */,
-			);
-			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
 		EF1DE334CDF10140242D2098 /* Pods */ = {
