@@ -2,7 +2,7 @@
 
 `MMYoutubeMP4Extractor` provides an easy way to obtain MP4 URL for your iOS apps by providing a YouTube URL.
 
-This library uses library from [RMYouTubeExtractor] by [Rune Madsen] - allowing you to just extract the metadata by providing a Youtube ID. 
+This library uses library from [RMYouTubeExtractor](https://github.com/runmad/RMYouTubeExtractor) by [Rune Madsen](https://github.com/runmad) - allowing you to just extract the metadata by providing a Youtube ID. 
 
 [![CI Status](http://img.shields.io/travis/Juan Miguel Marques Morilla/MMYoutubeMP4Extractor.svg?style=flat)](https://travis-ci.org/Juan Miguel Marques Morilla/MMYoutubeMP4Extractor)
 [![Version](https://img.shields.io/cocoapods/v/MMYoutubeMP4Extractor.svg?style=flat)](http://cocoapods.org/pods/MMYoutubeMP4Extractor)
