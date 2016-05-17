@@ -85,7 +85,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MMYoutubeMP4Extractor/MMYoutubeMP4Extractor.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RMYouTubeExtractor/RMYouTubeExtractor.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/MMYoutubeMP4Extractor/MMYoutubeMP4Extractor.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/RMYouTubeExtractor/RMYouTubeExtractor.framework"
 fi

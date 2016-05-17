@@ -1,5 +1,7 @@
 PODS:
-  - MMYoutubeMP4Extractor (0.1.0)
+  - MMYoutubeMP4Extractor (0.1.0):
+    - RMYouTubeExtractor
+  - RMYouTubeExtractor (0.3)
 
 DEPENDENCIES:
   - MMYoutubeMP4Extractor (from `../`)
@@ -9,7 +11,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  MMYoutubeMP4Extractor: efd699511d8c36a62b6b9b7943ac80ae9b55c93e
+  MMYoutubeMP4Extractor: dd0ea9c8f3ab8ecf05dc8dd461a7712488ba408a
+  RMYouTubeExtractor: 4de4965347d86549c1f4904113be33b0deee697a
 
 PODFILE CHECKSUM: c7d7448319f2f618a32ce903944f858d31d48660
 

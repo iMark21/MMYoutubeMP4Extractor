@@ -1,6 +1,6 @@
 //
 //  MMYoutubeManager.h
-//  MMVideo360
+//  MMYoutubeManager
 //
 //  Created by Juan Miguel Marques Morilla on 4/5/16.
 //  Copyright © 2016 Juan Miguel Marques Morilla. All rights reserved.
@@ -12,7 +12,7 @@
 
 +(instancetype)sharedInstance;
 
-- (void)mp4UrlForYouTubeIdFromUrl:(NSString *) url completionBlock:(void (^)(NSURL *mp4Url, NSError *error)) block ;
+- (void)mp4FromYoutubeURL:(NSString *) url completionBlock:(void (^)(NSURL *mp4Url, NSError *error)) block ;
 
 
 @end

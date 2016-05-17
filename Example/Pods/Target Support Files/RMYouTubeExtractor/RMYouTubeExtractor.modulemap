@@ -1,0 +1,6 @@
+framework module RMYouTubeExtractor {
+  umbrella header "RMYouTubeExtractor-umbrella.h"
+
+  export *
+  module * { export * }
+}
