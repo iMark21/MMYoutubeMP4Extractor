@@ -14,7 +14,6 @@ This library uses library from [RMYouTubeExtractor](https://github.com/runmad/RM
 - iOS 7 
 - ARC
 
-
 ## Installation
 
 MMYoutubeMP4Extractor is available through [CocoaPods](http://cocoapods.org). To install
@@ -34,6 +33,23 @@ and Then add this line to obtain the MP4 url:
 The instance returns a NSURL with MP4 URL
 
 Don’t forget to check for empty url / errors.
+
+## Matches:
+
+- youtube.com/v/vidid
+- youtube.com/vi/vidid
+- youtube.com/?v=vidid
+- youtube.com/?vi=vidid
+- youtube.com/watch?v=vidid
+- youtube.com/watch?vi=vidid
+- youtu.be/vidid
+- youtube.com/embed/vidid
+- http://youtube.com/v/vidid
+- http://www.youtube.com/v/vidid
+- https://www.youtube.com/v/vidid
+- youtube.com/watch?v=vidid&wtv=wtv
+- http://www.youtube.com/watch?dev=inprogress&v=vidid&feature=related
+- https://m.youtube.com/watch?v=vidid
 
 ### Demo project
 
