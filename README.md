@@ -33,7 +33,7 @@ and Then add this line to obtain the MP4 url:
 ```
 The instance returns a NSURL with MP4 URL
 
-Don’t forget to check for empty dictionary / errors.
+Don’t forget to check for empty url / errors.
 
 ### Demo project
 
