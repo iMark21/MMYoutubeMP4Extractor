@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MMYoutubeMP4Extractor"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "YouTube MP4 link extractor"
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ TODO: Add long description of the pod here.
   s.license          = 'MIT'
   s.author           = { "Juan Miguel Marques Morilla" => "juanmiguel.marques@4andgo.com" }
   s.source           = { :git => "https://github.com/iMark21/MMYoutubeMP4Extractor.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/michelmarques21'
+  s.social_media_url = 'https://twitter.com/michelmarques21'
 
   s.ios.deployment_target = '7.0'
 
