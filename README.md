@@ -17,7 +17,15 @@ MMYoutubeMP4Extractor is available through [CocoaPods](http://cocoapods.org). To
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "MMYoutubeMP4Extractor"
+pod 'MMYoutubeMP4Extractor'
+```
+
+and Then add this line to obtain the MP4 url:
+
+```ruby
+[[MMYoutubeMP4Extractor sharedInstance] mp4FromYoutubeURL:url_youtube_video completionBlock:^(NSURL *mp4Url, NSError *error) {
+
+}];
 ```
 
 ## Author
