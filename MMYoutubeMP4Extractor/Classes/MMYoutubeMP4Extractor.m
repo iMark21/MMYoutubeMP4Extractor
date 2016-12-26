@@ -50,31 +50,27 @@
 - (void)mp4FromYoutubeURL:(NSString *) url completionBlock:(void (^)(NSURL *mp4Url, NSError *error)) block {
     
     NSMutableArray *mutableArray = [NSMutableArray new];
-    
     [[RMYouTubeExtractor sharedInstance] extractVideoForIdentifier:[self extractYoutubeIdFromLink:url] completion:^(NSDictionary *videoDictionary, NSError *error) {
-        
         if (!error) {
-            
             for (NSString *key in videoDictionary) {
                 if (videoDictionary[key] != [NSNull null]) {
                     [mutableArray addObject:@{ @"quality" : key, @"url" : videoDictionary[key] }];
                 }
             }
-            
-            NSDictionary *dictionary = [mutableArray objectAtIndex:1];
-            
+            NSDictionary *dictionary = [[NSDictionary alloc]init];
+            switch (mutableArray.count) {
+                case 1:
+                    dictionary = [mutableArray objectAtIndex:0];
+                    break;
+                default:
+                    dictionary = [mutableArray objectAtIndex:1];
+                    break;
+            }
             block((NSURL*)[dictionary objectForKey:@"url"], nil);
-            
         }else{
-            
             block(nil, error);
-            
         }
-        
-        
     }];
-    
-    
 }
 
 
