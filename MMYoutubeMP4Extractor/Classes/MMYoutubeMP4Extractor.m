@@ -61,7 +61,7 @@
                 }
                 block((NSURL*)[dictionary objectForKey:@"url"], nil);
             }else{
-                block (nil, [NSError errorWithDomain:@"Video Loader Error" code:21 userInfo:[NSDictionary dictionaryWithObject:@"Not mp4 link available" forKey:NSLocalizedDescriptionKey]])
+                block (nil, [NSError errorWithDomain:@"Video Loader Error" code:21 userInfo:[NSDictionary dictionaryWithObject:@"Not mp4 link available" forKey:NSLocalizedDescriptionKey]]);
             }
             
         }else{
