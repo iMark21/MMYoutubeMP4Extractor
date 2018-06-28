@@ -18,7 +18,7 @@
 
 @implementation MMYoutubeMP4Extractor
 
-+(instancetype)sharedInstance{
++ (instancetype)sharedInstance{
     static dispatch_once_t once;
     static id sharedInstance;
     
@@ -30,12 +30,8 @@
 
  
 - (NSString *)extractYoutubeIdFromLink:(NSString *)link {
-    
     NSString *regexString = @"((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)";
-    NSRegularExpression *regExp = [NSRegularExpression regularExpressionWithPattern:regexString
-                                                                            options:NSRegularExpressionCaseInsensitive
-                                                                              error:nil];
-    
+    NSRegularExpression *regExp = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *array = [regExp matchesInString:link options:0 range:NSMakeRange(0,link.length)];
     if (array.count > 0) {
         NSTextCheckingResult *result = array.firstObject;
@@ -45,7 +41,6 @@
 }
 
 - (void)mp4FromYoutubeURL:(NSString *) url completionBlock:(void (^)(NSURL *mp4Url, NSError *error)) block {
-    
     NSMutableArray *mutableArray = [NSMutableArray new];
     [[RMYouTubeExtractor sharedInstance] extractVideoForIdentifier:[self extractYoutubeIdFromLink:url] completion:^(NSDictionary *videoDictionary, NSError *error) {
         if (!error) {
@@ -55,15 +50,20 @@
                 }
             }
             NSDictionary *dictionary = [[NSDictionary alloc]init];
-            switch (mutableArray.count) {
-                case 1:
-                    dictionary = [mutableArray objectAtIndex:0];
-                    break;
-                default:
-                    dictionary = [mutableArray objectAtIndex:1];
-                    break;
+            if (mutableArray != nil && mutableArray.count > 0) {
+                switch (mutableArray.count) {
+                    case 1:
+                        dictionary = [mutableArray objectAtIndex:0];
+                        break;
+                    default:
+                        dictionary = [mutableArray objectAtIndex:1];
+                        break;
+                }
+                block((NSURL*)[dictionary objectForKey:@"url"], nil);
+            }else{
+                block (nil, [NSError errorWithDomain:@"Video Loader Error" code:21 userInfo:[NSDictionary dictionaryWithObject:@"Not mp4 link available" forKey:NSLocalizedDescriptionKey]])
             }
-            block((NSURL*)[dictionary objectForKey:@"url"], nil);
+            
         }else{
             block(nil, error);
         }
