@@ -1,19 +1,23 @@
 PODS:
-  - MMYoutubeMP4Extractor (0.1.0):
+  - MMYoutubeMP4Extractor (0.1.2):
     - RMYouTubeExtractor
   - RMYouTubeExtractor (0.3)
 
 DEPENDENCIES:
   - MMYoutubeMP4Extractor (from `../`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - RMYouTubeExtractor
+
 EXTERNAL SOURCES:
   MMYoutubeMP4Extractor:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  MMYoutubeMP4Extractor: dd0ea9c8f3ab8ecf05dc8dd461a7712488ba408a
+  MMYoutubeMP4Extractor: 37c44910ebe351c19667e6ee1cdd5c059b533926
   RMYouTubeExtractor: 4de4965347d86549c1f4904113be33b0deee697a
 
 PODFILE CHECKSUM: c7d7448319f2f618a32ce903944f858d31d48660
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.5.0
