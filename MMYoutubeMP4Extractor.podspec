@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "MMYoutubeMP4Extractor"
-  s.version          = "0.1.2"
+  s.version          = "0.1.4"
   s.summary          = "YouTube MP4 link extractor"
 
 # This description is used to generate tags and improve search results.
