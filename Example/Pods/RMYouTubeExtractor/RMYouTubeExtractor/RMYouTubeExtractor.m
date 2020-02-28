@@ -65,89 +65,92 @@ static NSString *ApplicationLanguageIdentifier(void)
 
 -(void)extractVideoForIdentifier:(NSString*)videoIdentifier completion:(void (^)(NSDictionary *videoDictionary, NSError *error))completion {
     if (videoIdentifier && [videoIdentifier length] > 0) {
-        if (self.attemptType == RMYouTubeExtractorAttemptTypeError) {
-            NSError *error = [NSError errorWithDomain:@"com.theappboutique.rmyoutubeextractor" code:404 userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Unable to find playable content" }];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil, error);
-            });
-            self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
-            return;
+        if (videoIdentifier && [videoIdentifier length] > 0) {
+            if (self.attemptType == RMYouTubeExtractorAttemptTypeError) {
+                NSError *error = [NSError errorWithDomain:@"com.theappboutique.rmyoutubeextractor" code:404 userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Unable to find playable content" }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, error);
+                });
+                self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
+                return;
+            }
+            
+            NSMutableDictionary *parameters = [@{} mutableCopy];
+            switch (self.attemptType) {
+                case RMYouTubeExtractorAttemptTypeEmbedded:
+                    parameters[@"el"] = @"embedded";
+                    break;
+                case RMYouTubeExtractorAttemptTypeDetailPage:
+                    parameters[@"el"] = @"detailpage";
+                    break;
+                case RMYouTubeExtractorAttemptTypeVevo:
+                    parameters[@"el"] = @"vevo";
+                    break;
+                case RMYouTubeExtractorAttemptTypeBlank:
+                    parameters[@"el"] = @"";
+                    break;
+                default:
+                    break;
+            }
+            parameters[@"video_id"] = videoIdentifier;
+            parameters[@"ps"] = @"default";
+            parameters[@"eurl"] = @"";
+            parameters[@"gl"] = @"US";
+            parameters[@"hl"] = ApplicationLanguageIdentifier();
+            NSString *urlString = [self addQueryStringToUrlString:@"https://www.youtube.com/get_video_info" withParameters:parameters];
+            NSURLSession *session = [NSURLSession sharedSession];
+            
+            [[session dataTaskWithURL:[NSURL URLWithString:urlString]
+                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (!error) {
+                    NSString *videoQuery = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                    NSStringEncoding queryEncoding = NSUTF8StringEncoding;
+                    NSDictionary *video = DictionaryWithQueryString(videoQuery, queryEncoding);
+                    if ([[video objectForKey:@"status"] isEqualToString:@"ok"]) {
+                        NSString *playerResponseString = [video objectForKey:@"player_response"];
+                        NSData *dataPlayerResponse = [playerResponseString dataUsingEncoding:NSUTF8StringEncoding];
+                        NSDictionary *playerResponseDict = [NSJSONSerialization JSONObjectWithData:dataPlayerResponse options:0 error:nil];
+                        NSDictionary *streamingDataDict = [playerResponseDict objectForKey:@"streamingData"];
+                        NSMutableArray *streamQueries = [[NSMutableArray alloc] initWithArray:[streamingDataDict objectForKey:@"formats"]];
+                        NSArray *adaptiveFormatsArray = [streamingDataDict objectForKey:@"adaptiveFormats"];
+                        [streamQueries addObjectsFromArray:adaptiveFormatsArray];
+                        NSMutableDictionary *streamURLs = [[NSMutableDictionary alloc] init];
+                        for (NSDictionary *stream in streamQueries) {
+                            NSString *type = stream[@"mimeType"];
+                            NSString *urlString = stream[@"url"];
+                            if (urlString && [AVURLAsset isPlayableExtendedMIMEType:type]) {
+                                NSURL *streamURL = [NSURL URLWithString:urlString];
+                                if (([stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualitySmall240 || [stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualityMedium360 || [stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualityHD720)) {
+                                    streamURLs[@([stream[@"itag"] integerValue])] = streamURL;
+                                }
+                            }
+                            if ([[streamURLs allKeys] count] == 3) {
+                                break;
+                            }
+                        }
+                        self.attemptType++;
+                        if ([[streamURLs allKeys] count] == 0) {
+                            [self extractVideoForIdentifier:videoIdentifier completion:completion];
+                        } else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completion(streamURLs, nil);
+                            });
+                            self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
+                        }
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(nil, error);
+                    });
+                    self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
+                }
+            }
+              ] resume];
+        } else {
+            NSError *error = [NSError errorWithDomain:@"com.theappboutique.rmyoutubeextractor" code:400 userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Invalid or missing YouTube video identifier" }];
+            
+            completion(nil, error);
         }
-        NSMutableDictionary *parameters = [@{} mutableCopy];
-        switch (self.attemptType) {
-            case RMYouTubeExtractorAttemptTypeEmbedded:
-                parameters[@"el"] = @"embedded";
-                break;
-            case RMYouTubeExtractorAttemptTypeDetailPage:
-                parameters[@"el"] = @"detailpage";
-                break;
-            case RMYouTubeExtractorAttemptTypeVevo:
-                parameters[@"el"] = @"vevo";
-                break;
-            case RMYouTubeExtractorAttemptTypeBlank:
-                parameters[@"el"] = @"";
-                break;
-            default:
-                break;
-        }
-        parameters[@"video_id"] = videoIdentifier;
-        parameters[@"ps"] = @"default";
-        parameters[@"eurl"] = @"";
-        parameters[@"gl"] = @"US";
-        parameters[@"hl"] = ApplicationLanguageIdentifier();
-        
-        NSString *urlString = [self addQueryStringToUrlString:@"https://www.youtube.com/get_video_info" withParameters:parameters];
-        
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:[NSURL URLWithString:urlString]
-               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                   if (!error) {
-                       NSString *videoQuery = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                       NSStringEncoding queryEncoding = NSUTF8StringEncoding;
-                       NSDictionary *video = DictionaryWithQueryString(videoQuery, queryEncoding);
-                       NSMutableArray *streamQueries = [[video[@"url_encoded_fmt_stream_map"] componentsSeparatedByString:@","] mutableCopy];
-                       [streamQueries addObjectsFromArray:[video[@"adaptive_fmts"] componentsSeparatedByString:@","]];
-                       
-                       NSMutableDictionary *streamURLs = [NSMutableDictionary new];
-                       for (NSString *streamQuery in streamQueries) {
-                           NSDictionary *stream = DictionaryWithQueryString(streamQuery, queryEncoding);
-                           NSString *type = stream[@"type"];
-                           NSString *urlString = stream[@"url"];
-                           if (urlString && [AVURLAsset isPlayableExtendedMIMEType:type]) {
-                               NSURL *streamURL = [NSURL URLWithString:urlString];
-                               BOOL hasSignature = [[DictionaryWithQueryString(streamURL.query, queryEncoding) allKeys] containsObject:@"signature"];
-                               if (!hasSignature && stream[@"sig"]) {
-                                   streamURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@&signature=%@", urlString, stream[@"sig"]]];
-                                   hasSignature = YES;
-                               }
-                               if (hasSignature && ([stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualitySmall240 || [stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualityMedium360 || [stream[@"itag"] integerValue] == RMYouTubeExtractorVideoQualityHD720)) {
-                                   streamURLs[@([stream[@"itag"] integerValue])] = streamURL;
-                               }
-                           }
-                           if ([[streamURLs allKeys] count] == 3) {
-                               break;
-                           }
-                       }
-                       
-                       self.attemptType++;
-                       
-                       if ([[streamURLs allKeys] count] == 0) {
-                           [self extractVideoForIdentifier:videoIdentifier completion:completion];
-                       } else {
-                           dispatch_async(dispatch_get_main_queue(), ^{
-                               completion(streamURLs, nil);
-                           });
-                           self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
-                       }
-                       
-                   } else {
-                       dispatch_async(dispatch_get_main_queue(), ^{
-                           completion(nil, error);
-                       });
-                       self.attemptType = RMYouTubeExtractorAttemptTypeEmbedded;
-                   }
-               }
-         ] resume];
     } else {
         NSError *error = [NSError errorWithDomain:@"com.theappboutique.rmyoutubeextractor" code:400 userInfo:@{ NSLocalizedFailureReasonErrorKey : @"Invalid or missing YouTube video identifier" }];
         completion(nil, error);
